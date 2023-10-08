@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/*Leia um arquivo
+contendo valores numéricos reais e regrave-o com os registros em ordem inversa (de trás para diante)*/
+#define TAM 50
+
+int main(){
+
+int i=0, cont=0;
+float vet[TAM];
+
+FILE *arq = fopen("numeros.txt", "r");
+
+if(arq == NULL){
+    printf("erro ao abrir arquivo");
+    return 1;
+}
+
+while(!feof(arq)){
+    fscanf(arq, "%f", &vet[i]);
+    i++;
+    cont++;
+}
+
+fclose(arq);
+
+FILE *arquivo = fopen("invertido.txt", "w");
+
+if(arquivo == NULL){
+    printf("ERRO AO ABRIR ARQUIVO");
+    return 1;
+}
+
+for(i=cont-1; i >= 0; i--){
+    fprintf(arquivo, "%f\n", vet[i]);
+}
+
+}

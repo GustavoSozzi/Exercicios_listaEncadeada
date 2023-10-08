@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct _pessoa{
+    int rga;
+    char nome[50];
+    struct _pessoa *next;
+} Pessoa;
+
+Pessoa *novaPessoa(char *nome,int rga)
+{
+    Pessoa *nova = malloc(sizeof(Pessoa));
+    strcpy(nova->nome,nome);
+    nova->rga=rga;
+    nova->next = NULL;
+    return nova;
+}
+
+void inserirLista(Pessoa **lista,Pessoa *nova)
+{
+    Pessoa *aux=NULL;
+
+    if (*lista==NULL)
+    {
+        *lista=nova;
+    }
+    else
+    {
+        for (aux = *lista;aux->next!=NULL;aux=aux->next){}
+        aux->next=nova;
+    }
+}
+
+Pessoa *removerLista(Pessoa **lista,int rga)
+{
+    Pessoa *aux=NULL,*ant=NULL;
+    if (*lista!=NULL)
+    {
+        for (aux = *lista;aux!=NULL && aux->rga!=rga;ant=aux,aux=aux->next){}
+        if (aux!=NULL && aux->rga==rga)
+        {
+            if (aux==*lista)
+            {
+                *lista = aux->next;
+            }
+            else
+            {
+                ant->next = aux->next;
+            }
+        }

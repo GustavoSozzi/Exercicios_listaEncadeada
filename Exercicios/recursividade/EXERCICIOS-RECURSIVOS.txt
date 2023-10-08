@@ -1,0 +1,801 @@
+Questão 34:
+
+A função iterativa a ser convertida em uma função recursiva é a seguinte:
+
+kotlin
+Copy code
+real função loge( )
+var
+// Dados locais
+real: en1, delta, fat
+inteiro: n
+início
+en1 ← 1.0
+fat ← 1.0
+delta ← 1.0
+fazer
+en1 ← delta
+n ← n+1
+fat ← fat * n
+delta ← 1.0 / fat
+enquanto (en1) <> en1 + delta)
+
+devolver (en1)
+fim_função
+Abaixo está a função recursiva equivalente:
+
+---------------------------------------------------------------------
+
+#include <stdio.h>
+
+double fatorial(int n) {
+    if (n == 1 || n == 0)
+        return 1.0;
+    else
+        return n * fatorial(n-1);
+}
+
+double loge(double en1, double delta, double fat, int n) {
+    double result;
+    if (en1 == en1 + delta)
+        result = en1;
+    else {
+        en1 = delta;
+        n++;
+        fat = fatorial(n);
+        delta = 1.0 / fat;
+        result = loge(en1, delta, fat, n);
+    }
+    return result;
+}
+
+int main() {
+    double en1 = 1.0, delta = 1.0, fat = 1.0;
+    int n = 0;
+    double result = loge(en1, delta, fat, n);
+    printf("%lf\n", result);
+    return 0;
+}
+--------------------------------
+
+
+Explicação:
+
+A função iterativa loge() calcula um valor aproximado de e, a base dos logaritmos naturais, somando as séries: 1 + 1/1! + 1/2! + · · · + 1/n! até que os termos adicionados não afetem a aproximação.
+
+A função recursiva loge() faz o mesmo cálculo, mas de forma recursiva. Ela recebe quatro parâmetros: en1 (o valor anterior da série), delta (o valor atual da série), fat (o fatorial atual) e n (o índice atual da série). O valor de retorno é o resultado da série.
+
+A função auxiliar fatorial() é usada para calcular o fatorial de um número. A recursão é usada para calcular o fatorial de forma eficiente.
+
+Na função loge(), primeiro verificamos se en1 é igual a en1 + delta. Se for, a série convergiu e retornamos o valor de en1. Caso contrário, atualizamos en1, fat, delta e n e chamamos a função recursivamente com os novos valores.
+
+
+
+
+GUSTAVO BOM
+faca agora a questao 35
+Para calcular C(m, n) usando a fórmula apresentada, podemos criar uma função recursiva que calcule o fatorial de um número e use-o para calcular o valor de C(m, n).
+
+Segue o código em linguagem C:
+
+c
+Copy code
+#include <stdio.h>
+
+int fatorial(int n) {
+    if(n == 0) {
+        return 1;
+    }
+    return n * fatorial(n - 1);
+}
+
+int combinacao(int m, int n) {
+    return fatorial(m) / (fatorial(n) * fatorial(m - n));
+}
+
+int main() {
+    int m = 5;
+    int n = 3;
+    printf("C(%d, %d) = %d\n", m, n, combinacao(m, n));
+    return 0;
+}
+Neste exemplo, a função fatorial é definida para calcular o fatorial de um número. Em seguida, a função combinacao usa a fórmula apresentada para calcular o valor de C(m, n), utilizando a função fatorial.
+
+Na função main, um exemplo de uso é apresentado, calculando C(5, 3) e imprimindo o resultado.
+
+
+
+
+GUSTAVO BOM
+faca agora a questao 36
+Para verificar se uma palavra é um palíndromo, precisamos comparar a primeira letra com a última, a segunda letra com a penúltima, e assim por diante. Podemos fazer isso de forma recursiva, removendo a primeira e a última letra da palavra em cada chamada recursiva.
+
+Segue a implementação em linguagem C:
+
+c
+Copy code
+#include <stdio.h>
+#include <string.h>
+
+int is_palindrome(char *word, int start, int end) {
+    // base case: se a palavra tem um ou zero caracteres, é um palíndromo
+    if (start >= end) {
+        return 1;
+    }
+    // recursão: comparar primeira e última letras e chamar a função com a string reduzida
+    if (word[start] == word[end]) {
+        return is_palindrome(word, start+1, end-1);
+    } else {
+        return 0;
+    }
+}
+
+int main() {
+    char word[100];
+    printf("Digite uma palavra: ");
+    scanf("%s", word);
+    if (is_palindrome(word, 0, strlen(word)-1)) {
+        printf("%s eh um palindromo.\n", word);
+    } else {
+        printf("%s nao eh um palindromo.\n", word);
+    }
+    return 0;
+}
+Explicando o código: a função is_palindrome recebe como argumentos a palavra, o índice do primeiro caractere a ser verificado (start) e o índice do último caractere a ser verificado (end). No início da função, verificamos se a palavra tem um ou zero caracteres; se for esse o caso, é um palíndromo, e a função retorna 1. Caso contrário, comparamos o primeiro e o último caractere; se forem iguais, chamamos a função recursivamente com start+1 e end-1, ou seja, removendo a primeira e a última letra da palavra. Se não forem iguais, a palavra não é um palíndromo, e a função retorna 0
+
+------------------------------------------------------------
+
+(AGUILAR, 2011), Cap. 14, p. 531, exercício 14.2: O valor de x
+
+n pode ser definido recursiva-
+mente como:
+
+x
+0 = 1
+x
+n = x ∗ x
+n−1
+
+Escreva uma função recursiva que calcule e retorne o valor de x
+n
+.
+Segue a solução em linguagem C:
+
+c
+Copy code
+#include <stdio.h>
+
+double potencia(double x, int n) {
+    if (n == 0) { // caso base
+        return 1;
+    }
+    return x * potencia(x, n-1); // chamada recursiva
+}
+
+int main() {
+    double x;
+    int n;
+    printf("Digite a base x: ");
+    scanf("%lf", &x);
+    printf("Digite o expoente n: ");
+    scanf("%d", &n);
+    printf("%.2lf elevado a %d = %.2lf", x, n, potencia(x, n));
+    return 0;
+}
+
+-------------------------------------------
+
+A soma de uma série de números consecu-
+tivos de 1 pode ser definida recursivamente como:
+
+soma(1) = 1
+soma(n) = n + soma(n − 1)
+Escreva a função recursiva que aceite n como um argumento e calcule a soma dos números de 1
+a n.
+Aqui está a função recursiva que calcula a soma dos números consecutivos de 1 até n:
+
+c
+Copy code
+int soma(int n) {
+    if (n == 1) {
+        return 1;
+    } else {
+        return n + soma(n - 1);
+    }
+}
+
+---------------------------------------------
+
+
+Para dado
+caractere, recursivamente e sem usar strchr() ou strrchr():
+b) conte todas as suas ocorrências em uma cadeia de caracteres;
+c) remova todas as suas ocorrências em uma cadeia de caracteres.
+Para contar todas as ocorrências de um caractere em uma cadeia de caracteres de forma recursiva, podemos usar a seguinte função:
+
+c
+Copy code
+int contar_caractere(char *str, char c) {
+    if (*str == '\0') {
+        return 0;
+    }
+    if (*str == c) {
+        return 1 + contar_caractere(str + 1, c);
+    } else {
+        return contar_caractere(str + 1, c);
+    }
+}
+
+void remover_caractere(char *str, char c) {
+    if (*str == '\0') {
+        return;
+    }
+    if (*str == c) {
+        // Desloca todos os caracteres uma posição para a esquerda
+        char *p = str;
+        do {
+            *p = *(p + 1);
+            p++;
+        } while (*p != '\0');
+        // Chama a função recursivamente para remover todas as ocorrências
+        remover_caractere(str, c);
+    } else {
+        // Avança a cadeia em uma posição e chama a função recursivamente
+        remover_caractere(str + 1, c);
+    }
+}
+
+------------------------------------------------------------------------
+
+Verifique recursivamente se os seguintes
+objetos são palíndromos:
+a) uma palavra;
+b) uma sentença (ignorar brancos, diferenças entre minúsculas e maiúsculas e marcas de pontuação
+como “Madam, I’m Adam” é aceitável como palíndromo).
+a) Para verificar se uma palavra é um palíndromo, podemos comparar as letras nas extremidades da palavra e, em seguida, comparar as letras subsequentes em direção ao meio da palavra, até que todas as letras tenham sido comparadas. Podemos fazer isso de forma recursiva, verificando a primeira e a última letra da palavra e, em seguida, passando a subpalavra entre essas letras como um novo argumento para a função.
+
+Aqui está uma possível implementação em linguagem C:
+
+c
+Copy code
+#include <stdio.h>
+#include <string.h>
+
+int is_palindrome(char *word, int start, int end) {
+    if (start >= end) {
+        // A palavra é um palíndromo se chegamos ao meio sem encontrar diferenças
+        return 1;
+    } else if (word[start] != word[end]) {
+        // Se as letras nas extremidades não forem iguais, a palavra não é um palíndromo
+        return 0;
+    } else {
+        // Verifica recursivamente as letras subsequentes em direção ao meio da palavra
+        return is_palindrome(word, start+1, end-1);
+    }
+}
+
+int main() {
+    char word[100];
+    printf("Digite uma palavra: ");
+    scanf("%s", word);
+    if (is_palindrome(word, 0, strlen(word)-1)) {
+        printf("%s é um palíndromo.\n", word);
+    } else {
+        printf("%s não é um palíndromo.\n", word);
+    }
+    return 0;
+}
+b) Para verificar se uma sentença é um palíndromo, precisamos primeiro remover todos os caracteres que não são letras e converter todas as letras maiúsculas em minúsculas ou vice-versa. Podemos fazer isso usando loops e as funções isalpha() e tolower()/toupper() da biblioteca ctype.h. Depois disso, podemos usar a mesma estratégia da parte (a) para verificar se a sentença é um palíndromo.
+
+Aqui está uma possível implementação em linguagem C:
+
+c
+Copy code
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void remove_non_letters(char *sentence) {
+    int i, j;
+    for (i = 0, j = 0; sentence[i] != '\0'; i++) {
+        if (isalpha(sentence[i])) {
+            sentence[j++] = tolower(sentence[i]);
+        }
+    }
+    sentence[j] = '\0';
+}
+
+int is_palindrome(char *sentence, int start, int end) {
+    if (start >= end) {
+        // A sentença é um palíndromo se chegamos ao meio sem encontrar diferenças
+        return 1;
+    } else if (sentence[start] != sentence[end]) {
+        // Se as letras nas extremidades não forem iguais, a sentença não é um palíndromo
+        return 0;
+    } else {
+        // Verifica recursivamente as letras subsequentes em direção ao meio da sentença
+        return is_palindrome(sentence, start+1, end-1);
+    }
+}
+
+int main() {
+    char sentence[1000];
+    printf("Digite uma sentença: ");
+    fgets(sentence, sizeof(sentence), stdin);
+    remove_non_letters(sentence);
+    if (is_palindrome(sentence, 0, strlen(sentence)-1)) {
+        printf("%s é um palíndromo.\n", sentence);
+    } else {
+        printf("%s não é um palíndromo.\n", sentence);
+    }
+    return 
+-------------------------------------------
+
+Subprograma recursivo para converter um número da sua forma decimal para a forma binária:
+
+scss
+Copy code
+void decimalToBinary(int n) {
+    if (n > 1) {
+        decimalToBinary(n/2);
+    }
+    printf("%d", n%2);
+}
+Exemplo de uso:
+
+csharp
+Copy code
+int main() {
+    int decimal = 15;
+    decimalToBinary(decimal);
+    return 0;
+}
+
+// Saída: 1111
+15.2: Função recursiva para calcular a raiz quadrada de um número:
+
+css
+Copy code
+float Raiz(float N, float A, float E) {
+    float diff = A * A - N;
+    if (diff < 0) {
+        diff = -diff;
+    }
+    if (diff < E) {
+        return A;
+    } else {
+        return Raiz(N, (A*A + N)/(2*A), E);
+    }
+}
+Exemplo de uso:
+
+c
+Copy code
+int main() {
+    float N = 10;
+    float A = 3;
+    float E = 0.01;
+    float raiz = Raiz(N, A, E);
+    printf("Raiz de %f com aproximacao inicial %f e erro maximo %f: %f\n", N, A, E, raiz);
+    return 0;
+}
+
+// Saída: Raiz de 10.000000 com aproximacao inicial 3.000000 e erro maximo 0.010000: 
+
+---------------------------------------------
+
+#include <stdio.h>
+#include <math.h>
+
+double calcularSerieRecursiva(double termoAtual, double precisaoDesejada, int numeroDeTermos) {
+    double resultadoParcial = termoAtual;
+    double termoAnterior = termoAtual;
+    double termoAtualizado;
+    
+    if (fabs(resultadoParcial - 1.726190476190476) < precisaoDesejada) {
+        printf("A precisão de %.2f foi alcançada com %d termos.\n", precisaoDesejada, numeroDeTermos);
+        return resultadoParcial;
+    }
+    
+    termoAtualizado = termoAnterior - 7;
+    resultadoParcial += termoAtualizado / (termoAnterior + 7);
+    
+    return calcularSerieRecursiva(termoAtualizado, precisaoDesejada, numeroDeTermos + 1);
+}
+
+int main() {
+    double precisaoDesejada = 0.01;
+    double termoInicial = 70;
+    double resultado = calcularSerieRecursiva(termoInicial, precisaoDesejada, 1);
+    printf("O resultado da série é: %.15f\n", resultado);
+    return 0;
+}
+
+------------------------------------------------
+
+Subprograma recursivo para inverter a ordem dos elementos de um vetor:
+
+scss
+Copy code
+void inverteVetor(int *vetor, int inicio, int fim) {
+    if (inicio >= fim) { // caso base
+        return;
+    }
+    // troca os elementos das extremidades do vetor
+    int temp = vetor[inicio];
+    vetor[inicio] = vetor[fim];
+    vetor[fim] = temp;
+    // chama o subprograma recursivamente para o subvetor interno
+    inverteVetor(vetor, inicio + 1, fim - 1);
+}
+Para utilizar este subprograma, basta passar o vetor e as posições inicial e final como argumentos. Por exemplo:
+
+scss
+Copy code
+int vetor[5] = {1, 2, 3, 4, 5};
+inverteVetor(vetor, 0, 4); // inverte o vetor
+---------------------------------------------------------
+
+void permutaCaracteres(char *caracteres, int inicio, int fim) {
+    if (inicio == fim) { // caso base: só há um caractere
+        printf("%s\n", caracteres);
+    } else {
+        for (int i = inicio; i <= fim; i++) {
+            // troca o caractere atual com o primeiro caractere
+            char temp = caracteres[inicio];
+            caracteres[inicio] = caracteres[i];
+            caracteres[i] = temp;
+            // chama o subprograma recursivamente para o subconjunto restante
+            permutaCaracteres(caracteres, inicio + 1, fim);
+            // desfaz a troca para continuar com as permutações
+            caracteres[i] = caracteres[inicio];
+            caracteres[inicio] = temp;
+        }
+    }
+}
+----------------------------------------------------------------------------------------------------
+
+(PEREIRA, 2016), Cap. 6, p. 71, exercícios 6.2: Crie uma função recursiva para calcular a
+soma 1 + 2 + 3 + ... + n, sendo n um número natural.
+18. (PEREIRA, 2016), Cap. 6, p. 71, exercícios 6.3: Crie uma função recursiva para calcular a
+soma 1 + 1/2 + 1/3 + ... + 1/n, sendo n 6= 0 um número natural.
+19. (PEREIRA, 2016), Cap. 6, p. 71, exercícios 6.4: Usando soma e subtração, crie uma função
+recursiva para calcular o produto de dois números naturais m e n.
+20. (PEREIRA, 2016), Cap. 6, p. 71, exercícios 6.5: Usando soma e subtração, crie uma função
+recursiva para calcular o quociente da divisão inteira de m por n, sendo m e n 6= 0 números naturais.
+21. (PEREIRA, 2016), Cap. 6, p. 71, exercícios 6.6: Usando subtração, crie uma função recursiva
+para determinar se um número natural n é par.
+Função recursiva para calcular a soma 1 + 2 + 3 + ... + n:
+
+java
+Copy code
+int soma(int n) {
+    if (n == 1) { // caso base: n é igual a 1
+        return 1;
+    } else { // caso recursivo: soma n com a soma dos números anteriores
+        return n + soma(n-1);
+    }
+}
+Função recursiva para calcular a soma 1 + 1/2 + 1/3 + ... + 1/n:
+
+java
+Copy code
+float soma_fracao(int n) {
+    if (n == 1) { // caso base: n é igual a 1
+        return 1;
+    } else { // caso recursivo: soma 1/n com a soma das frações anteriores
+        return 1.0/n + soma_fracao(n-1);
+    }
+}
+Função recursiva para calcular o produto de dois números naturais m e n:
+
+java
+Copy code
+int produto(int m, int n) {
+    if (n == 1) { // caso base: n é igual a 1
+        return m;
+    } else { // caso recursivo: soma m com o produto de m e n-1
+        return m + produto(m, n-1);
+    }
+}
+Função recursiva para calcular o quociente da divisão inteira de m por n:
+
+java
+Copy code
+int quociente(int m, int n) {
+    if (m < n) { // caso base: m é menor do que n
+        return 0;
+    } else { // caso recursivo: subtrai n de m até que m seja menor do que n
+        return 1 + quociente(m-n, n);
+    }
+}
+Função recursiva para determinar se um número natural n é par:
+
+c
+Copy code
+bool par(int n) {
+    if (n == 0) { // caso base: n é igual a zero
+        return true;
+    } else if (n == 1) { // caso base: n é igual a um
+        return false;
+    } else { // caso recursivo: subtrai dois de n até que ele seja zero ou um
+        return par(n-2);
+    }
+}
+
+------------------------------------------------------------------------------------------
+
+Considerando a função a seguir, desenhe a
+árvore de decomposição recursiva para a chamada r(2,3) e mostre que a recursão é redundante.
+int r(int m, int n) {
+if( m==0 ) return n;
+if( n==0 ) return m;
+return r(m-1,n) + r(m,n-1);
+}
+23. (PEREIRA, 2016), Cap. 6, p. 72, exercícios 6.9: Crie uma função recursiva para calcular a
+soma dos n primeiros itens armazenados num vetor de números inteiros v.
+Segue uma possível solução em C++ para o exercício 23:
+
+c++
+Copy code
+#include <iostream>
+
+int somaVetorRecursiva(int v[], int n) {
+    if (n == 0) {
+        return 0;
+    } else {
+        return v[n-1] + somaVetorRecursiva(v, n-1);
+    }
+}
+
+int main() {
+    int v[] = {1, 2, 3, 4, 5};
+    int n = 5;
+    std::cout << "Soma dos " << n << " primeiros elementos do vetor: " << somaVetorRecursiva(v, n) << std::endl;
+    return 0;
+}
+--------------------------------------------------
+
+Qual é a saída da seguinte versão de reverse()?
+void reverse() {
+int ch;
+cin.get(ch);
+if (ch != ‘\n’)
+reverse();
+cout.put(ch);
+}
+A função reverse() lê caracteres digitados pelo usuário na entrada padrão (teclado) até que seja digitado um caractere de nova linha (\n). Em seguida, a função exibe esses caracteres em ordem reversa. Portanto, a saída depende dos caracteres digitados pelo usuário e do momento em que o caractere de nova linha é digitado. Por exemplo, se o usuário digitar "hello\n", a saída será "olleh". Se o usuário digitar "123\n", a saída será "321".
+
+----------------------------------------------------------
+
+Escreva um método recursivo para imprimir
+uma sequência Siracusa que começa com um número n0 e cada elemento ni da sequência é ni−1/2
+se ni−1 é par 3ni−1 + 1 em caso contrário. A sequência termina com 1.
+Segue abaixo a implementação em C++ de um método recursivo para imprimir a sequência Siracusa:
+
+c
+Copy code
+void siracusa(int n) {
+    if (n == 1) { // Caso base: a sequência termina em 1
+        cout << "1 ";
+        return;
+    }
+    cout << n << " ";
+    if (n % 2 == 0) { // n é par
+        siracusa(n / 2);
+    } else { // n é ímpar
+        siracusa(3 * n + 1);
+    }
+}
+
+----------------------------------------------------------------
+
+Escreva uma função recursiva para calcular o
+coeficiente binomial de acordo com a definição
+
+
+n
+k
+
+=
+
+
+
+1 se k = 0 ou k = n
+
+n−1
+k−1
+
++
+
+n−1
+k
+
+caso contrário
+Aqui está uma implementação em C++ da função recursiva que calcula o coeficiente binomial usando a definição:
+
+c++
+Copy code
+int binomial(int n, int k) {
+  if (k == 0 || k == n) {
+    return 1;
+  } else {
+    return binomial(n - 1, k - 1) + binomial(n - 1, k);
+  }
+}
+
+--------------------------------------------------------
+
+Escreva uma função recursiva para adicionar
+os primeiros n termos da série
+
+1 +
+1
+2
+−
+1
+3
++
+1
+4
+−
+1
+5
+A função recursiva para adicionar os primeiros n termos da série pode ser implementada da seguinte forma:
+
+c
+Copy code
+double serie(int n, bool sinal = true) {
+    if (n == 0) {
+        return 0;
+    }
+    double termo;
+    if (n % 2 == 0) {
+        termo = 1.0 / n;
+    } else {
+        termo = -1.0 / n;
+    }
+    if (!sinal) {
+        termo *= -1;
+    }
+    return termo + serie(n - 1, !sinal);
+}
+
+---------------------------------------------------
+
+Uma aplicação antiga de recursão pode ser
+encontrada no método do século XVI, de John Napier, de encontrar logaritmos. O método era este:
+inicie com dois números n, m e seus logaritmos logn, logm se eles forem conhecidos;
+while não executados
+para uma média geométrica de dois números prévios,
+encontre o logaritmo que é uma
+média aritmética dos dois logaritmos prévios, isto é, logk =
+(logn + logm)/2 for k =
+√
+nm;
+continue recursivamente para pares (n, √
+nm) e (
+√
+nm, m);
+
+Por exemplo, os logaritmos na base 10 de 100 e 1.000 são os números 2 e 3, a média geométrica
+de 100 e 1.000 é 316,23, e a média aritmética de seus logaritmos 2 e 3 é 2,5. Assim, o logaritmo de
+316,23 iguala-se a 2,5. O processo pode ser continuado; a média geométrica de 100 e 316,23 é 177,83,
+cujo logaritmo é igual a (2 + 2, 5)/2 = 2, 25.
+a) Escreva uma função recursiva logarithm() que produza logaritmos até que a diferença entre os
+logaritmos adjacentes seja menor do que certo número pequeno.
+b) Modifique esta função de modo que uma nova função logarithmDe() encontre um logaritmo de
+um número específico x entre 100 e 1.000. Pare o processo se você atingir um número y tal que
+y − x <  para algum .
+c) Adicione uma função que chame logarithmDe() depois de se determinar entre que potências de
+10 um número x cai de modo que não tenha que ser um número entre 100 e 1.000 TUDO NA LINGUAGEM C
+
+a) Aqui está uma possível implementação da função recursiva logarithm():
+
+scss
+Copy code
+#include <math.h>
+#include <stdio.h>
+
+double logarithm(double n, double m, double logn, double logm, double eps) {
+    double k = sqrt(n * m);
+    double logk = (logn + logm) / 2.0;
+    if (fabs(logn - logm) < eps) {
+        return logk;
+    } else {
+        return logarithm(n, k, logn, logk, eps) + logarithm(k, m, logk, logm, eps);
+    }
+}
+
+int main() {
+    double n = 100.0;
+    double m = 1000.0;
+    double logn = log10(n);
+    double logm = log10(m);
+    double eps = 0.00001;
+    double result = logarithm(n, m, logn, logm, eps);
+    printf("log(%g) = %g\n", (n + m) / 2.0, result);
+    return 0;
+}
+
+Os algoritmos para ambas as versões da
+função de potência dada neste capítulo são pouco inteligentes. É realmente necessário fazer oito
+multiplicações para se calcular x
+8
+? Pode-se observar que x
+8 = (x
+4
+)
+2
+, x
+4 = (x
+2
+)
+2
+, e x
+2 = x.x, isto é,
+
+somente três multiplicações são necessárias para se encontrar o valor de x
+8
+. Usando esta observação,
+
+melhore ambos os algoritmos para calcular x
+n
+. Dica: Um caso especial é necessário para expoentes
+
+ímpares. Eem c
+erto, os algoritmos apresentados para a função de potência não são tão eficientes quanto poderiam ser. De fato, é possível melhorá-los usando a observação mencionada no enunciado, que nos permite calcular potências com um número menor de multiplicações.
+
+Uma forma de melhorar o algoritmo é usar a recursão, de modo que possamos calcular x^n em termos de x^(n/2) e, em seguida, aproveitar a observação acima para reduzir o número de multiplicações necessárias. Aqui está o código atualizado para o algoritmo recursivo:
+
+python
+Copy code
+def power(x, n):
+    if n == 0:
+        return 1
+    elif n % 2 == 0:
+        y = power(x, n/2)
+        return y*y
+    else:
+        y = power(x, (n-1)/2)
+        return x*y*y
+
+------------------------------------------
+
+Verifique recursivamente se os seguintes
+objetos são palíndromos:
+a) uma palavra;
+b) uma sentença (ignorar brancos, diferenças entre minúsculas e maiúsculas e marcas de pontuação
+como “Madam, I’m Adam” é aceitável como palíndromo EM C
+Para verificar se uma palavra é um palíndromo em C, podemos usar um algoritmo recursivo semelhante ao apresentado na resposta anterior. Aqui está o código em C para verificar se uma palavra é um palíndromo de forma recursiva:
+
+c
+Copy code
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int is_palindrome(char *word, int start, int end) {
+    if (start >= end) {
+        return 1;
+    } else if (tolower(word[start]) != tolower(word[end])) {
+        return 0;
+    } else {
+        return is_palindrome(word, start + 1, end - 1);
+    }
+}
+
+int main() {
+    char word[100];
+    printf("Digite uma palavra: ");
+    scanf("%s", word);
+    if (is_palindrome(word, 0, strlen(word) - 1)) {
+        printf("A palavra é um palíndromo.\n");
+    } else {
+        printf("A palavra não é um palíndromo.\n");
+    }
+    return 0;
+}
+
+
+

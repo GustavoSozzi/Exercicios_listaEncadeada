@@ -1,0 +1,272 @@
+include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define TAM 20
+#define CORTE 0
+
+typedef struct _fila{
+    float prova;
+    float redacao;
+    struct _fila *prox;
+}FILA;
+
+typedef struct{
+    FILA *ini;
+    FILA *fim;
+}PIVO;
+
+void printNO(FILA *no)
+{
+    printf("[%.2f,%.2f]->",no->prova,no->redacao);
+}
+
+void imprimirLista(FILA *fila)
+{
+    FILA *aux;
+    printf("Fila: ");
+    for (aux=fila;aux!=NULL;aux=aux->prox)
+    {
+        printNO(aux);
+    }
+    printf("\n");
+}
+
+FILA *novoNO(float prova,float redacao)
+{
+    FILA *novo = (FILA *)malloc(sizeof(FILA));
+    novo->prox = NULL;
+    novo->prova = prova;
+    novo->redacao = redacao;
+    return novo;
+}
+
+FILA *removeSelecao(PIVO *pivo,FILA *no)
+{
+    FILA *aux = pivo->ini;
+    FILA *ant = NULL;
+    while (aux != NULL && no->prova != aux->prova && no->redacao != aux->redacao)
+    {
+        ant = aux;
+        aux=aux->prox;
+    }
+
+    if (aux==NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        if (aux==pivo->ini)
+        {
+            pivo->ini = aux->prox;
+        }
+        else
+        {
+            ant->prox = aux->prox;
+        }
+        return aux;
+    }
+}
+
+/** Insere como prioridade a partir da nota obtida na redacao.
+    inserirPrioridadeOrdenada() -> prioridade maior no comeco.
+**/
+void inserirOrdenado(PIVO *pivo,FILA *novo)
+{
+    if (novo->redacao<=CORTE)
+    {
+        pivo->fim->prox = novo;
+        pivo->fim = novo;
+    }
+    else
+    {
+        FILA *aux = pivo->ini;
+        FILA *ant = NULL;
+        while (aux != NULL && novo->redacao <= aux->redacao) //mudar para maior ou menor prioridade, basta apenas mudar o sinal de comparacao
+
+        {
+            ant = aux;
+            aux=aux->prox;
+        }
+
+        if (aux==NULL)
+        {
+            pivo->fim->prox = novo;
+            pivo->fim = novo;
+        }
+        else if (aux==pivo->ini)
+        {
+            novo->prox=pivo->ini;
+            pivo->ini = novo;
+        }
+        else
+        {
+            ant->prox = novo;
+            novo->prox = aux;
+        }
+    }
+}
+
+void inserirPrioridadeOrdenada(PIVO *pivo,float prova,float redacao)
+{
+    FILA *novo = novoNO(prova,redacao);
+    if (pivo->ini==NULL)
+    {
+        pivo->ini = novo;
+        pivo->fim = novo;
+    }
+    else
+    {
+        inserirOrdenado(pivo,novo);
+    }
+}
+
+void alterarPrioridadeOrdenada(PIVO *pivo,FILA *no,float redacao)
+{
+    no = removeSelecao(pivo,no);
+    if (no==NULL)
+    {
+        printf("Elemento nao encontrado\n");
+        return;
+    }
+    inserirPrioridadeOrdenada(pivo,no->prova,redacao); //funcao recursiva
+    free(no);
+}
+
+void inserirPrioridade(PIVO *pivo,float prova,float redacao)
+{
+    FILA *novo = novoNO(prova,redacao);
+    if (pivo->ini==NULL)
+    {
+        pivo->ini = novo;
+        pivo->fim = novo;
+    }
+    else
+    {
+        pivo->fim->prox = novo;
+        pivo->fim = novo;
+    }
+}
+
+FILA *removerPrioridade(PIVO *pivo)
+{
+    FILA *aux = NULL;
+    if (pivo->ini==NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        FILA *aux = pivo->ini;
+        FILA *antMaior = aux;
+        FILA *ant = aux;
+        FILA *maior = aux;
+        while (aux != NULL)
+        {
+            if (maior->redacao < aux->redacao)
+            {
+                antMaior = ant;
+                maior = aux;
+            }
+            ant=aux;
+            aux=aux->prox;
+        }
+        printf("MAIOR: ");printNO(maior);printf("\n");
+        printNO(antMaior);printf("\n");
+
+        if (maior==pivo->ini)
+        {
+            pivo->ini = maior->prox;
+        }
+        else
+        {
+            antMaior->prox = maior->prox;
+        }
+        return maior;
+    }
+}
+
+void alterarPrioridade(PIVO *pivo,FILA *no,float redacao)
+{
+    if (pivo->ini==NULL)
+    {
+        printf("Fila vazia\n");
+    }
+    else
+    {
+        FILA *aux = pivo->ini;
+        while (aux != NULL && no->prova != aux->prova && no->redacao != aux->redacao)
+        {
+            aux=aux->prox;
+        }
+        if (aux==NULL)
+        {
+            printf("Elemento nao encontrado\n");
+        }
+        else
+        {
+            aux->redacao = redacao;
+        }
+    }
+}
+
+/** fim insercao **/
+
+FILA *removerPrioridadeOrdenada(PIVO *pivo)
+{
+    FILA *aux = NULL;
+    if (pivo->ini==NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        aux = pivo->ini;
+        pivo->ini=pivo->ini->prox;
+        return aux;
+    }
+}
+
+void liberaLista(FILA *fila)
+{
+    if (fila!=NULL)
+    {
+        liberaLista(fila->prox);
+        free(fila);
+    }
+}
+
+int main()
+{
+    PIVO pivo;
+    pivo.ini = NULL;
+    pivo.fim = NULL;
+    srand(time(NULL));
+
+    int i,valor;
+    for (i=0;i<TAM;i++)
+    {
+        if (rand()%2==0)
+        {
+            //inserirPrioridadeOrdenada(&pivo,rand()%100,rand()%1000);
+            inserirPrioridade(&pivo,rand()%100,rand()%1000);
+        }
+        else
+        {
+            //inserirPrioridadeOrdenada(&pivo,rand()%100,0);
+            inserirPrioridade(&pivo,rand()%100,0);
+        }
+    }
+    imprimirLista(pivo.ini);
+
+    /*FILA *rem = remover(&pivo);*/
+    FILA *rem = removerPrioridade(&pivo);
+    //printNO(rem);
+    free(rem);
+    imprimirLista(pivo.ini);
+
+    /*liberaLista(pivo.ini);*/
+
+    return 0;
+}

@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1467160095 source:c:\users\eduardo\documents\trabalho_de_implementacao_3\app.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"slList.h"
+	"app.h"
+
+1466959438 c:\users\eduardo\documents\trabalho_de_implementacao_3\sllist.h
+
+1464476222 c:\users\eduardo\documents\trabalho_de_implementacao_3\app.h
+
+1467160189 source:c:\users\eduardo\documents\trabalho_de_implementacao_3\main.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"slList.h"
+	"app.h"
+
+1466957458 source:c:\users\eduardo\documents\trabalho_de_implementacao_3\sllist.c
+	<stdlib.h>
+	"slList.h"
+

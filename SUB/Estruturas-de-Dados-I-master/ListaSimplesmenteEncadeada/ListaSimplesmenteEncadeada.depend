@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1473381187 source:c:\users\eduardo\documents\listasimplesmenteencadeada\sllist.c
+	<stdlib.h>
+	"slList.h"
+
+1466514429 c:\users\eduardo\documents\listasimplesmenteencadeada\sllist.h
+

@@ -1,0 +1,129 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define TAM 20
+
+typedef struct _fila{
+    float prova;
+    float redacao;
+    struct _fila *prox;
+}FILA;
+
+typedef struct{
+    FILA *ini;
+    FILA *fim;
+}PIVO;
+
+void printNO(FILA *no)
+{
+    printf("[%.2f,%.2f]->",no->prova,no->redacao);
+}
+
+void imprimirLista(PIVO pivo)
+{
+    FILA *aux;
+    printf("Fila: ->");
+    if (pivo.ini!=NULL)
+    {
+        aux=pivo.ini;
+        printNO(aux);
+        for (aux=aux->prox;aux!=NULL && aux!=pivo.fim->prox;aux=aux->prox)
+        {
+            printNO(aux);
+        }
+    }
+    printf("\n");
+}
+
+FILA *novoNO(float prova,float redacao)
+{
+    FILA *novo = (FILA *)malloc(sizeof(FILA));
+    novo->prox = NULL;
+    novo->prova = prova;
+    novo->redacao = redacao;
+    return novo;
+}
+
+void inserir(PIVO *pivo,float prova,float redacao)
+{
+    FILA *novo = novoNO(prova,redacao);
+    if (pivo->ini==NULL)
+    {
+        pivo->ini = novo;
+        pivo->fim = novo;
+        //novo->prox = pivo->ini;
+        pivo->fim->prox = pivo->ini;
+    }
+    else
+    {
+        pivo->fim->prox = novo;
+        pivo->fim = novo;
+        novo->prox = pivo->ini;
+    }
+}
+
+FILA *remover(PIVO *pivo)
+{
+    FILA *aux = NULL;
+    if (pivo->ini==NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        aux = pivo->ini;
+        if (pivo->ini==pivo->fim)
+        {
+            pivo->ini = NULL;
+            pivo->fim = NULL;
+        }
+        else
+        {
+            pivo->fim->prox = pivo->ini->prox;
+            pivo->ini = pivo->fim->prox;
+            //pivo->ini=pivo->ini->prox;
+            //pivo->fim->prox = pivo->ini;
+        }
+        return aux;
+    }
+}
+
+void liberaFila(PIVO *pivo)
+{
+    FILA *aux = NULL;
+    aux = remover(pivo);
+    while (aux!=NULL)
+    {
+        printf("Removendo: ");
+        printNO(aux);
+        printf("\n");
+        free(aux);
+        aux = remover(pivo);
+    }
+}
+
+int main()
+{
+    PIVO pivo;
+    pivo.ini = NULL;
+    pivo.fim = NULL;
+    srand(time(NULL));
+
+    int i,valor,valor2;
+    for (i=0;i<TAM;i++)
+    {
+        valor = rand()%100;
+        valor2 = rand()%1000;
+        inserir(&pivo,valor,valor2);
+    }
+    imprimirLista(pivo);
+
+    FILA *rem = remover(&pivo);
+    free(rem);
+    imprimirLista(pivo);
+
+    liberaFila(&pivo);
+
+    return 0;
+}

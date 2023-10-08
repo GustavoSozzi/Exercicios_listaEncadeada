@@ -1,0 +1,116 @@
+# depslib dependency file v1.0
+1464370283 source:c:\users\eduardo\desktop\trabalho de implementação ii\colecao.c
+	<stdlib.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464370291 c:\users\eduardo\desktop\trabalho de implementação ii\colecao.h
+
+1464369465 c:\users\eduardo\desktop\trabalho de implementação ii\funcoes.h
+
+1464475588 source:c:\users\eduardo\desktop\trabalho de implementação ii\funcoes.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464476068 source:c:\users\eduardo\desktop\trabalho de implementação ii\main.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464786482 source:f:\trabalho de implementação ii\colecao.c
+	<stdlib.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464786482 f:\trabalho de implementação ii\colecao.h
+
+1464476222 f:\trabalho de implementação ii\funcoes.h
+
+1464785176 source:g:\trabalho de implementação ii\funcoes.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464786482 g:\trabalho de implementação ii\colecao.h
+
+1464476222 g:\trabalho de implementação ii\funcoes.h
+
+1464787382 source:g:\trabalho de implementação ii\colecao.c
+	<stdlib.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464805294 source:g:\trabalho de implementação ii\main.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464785176 source:f:\trabalho de implementação ii\funcoes.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464786672 source:f:\trabalho de implementação ii\main.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464785176 source:e:\trabalho de implementação ii\funcoes.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464786482 e:\trabalho de implementação ii\colecao.h
+
+1464476222 e:\trabalho de implementação ii\funcoes.h
+
+1464787382 source:e:\trabalho de implementação ii\colecao.c
+	<stdlib.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464805294 source:e:\trabalho de implementação ii\main.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464787382 source:c:\users\eduardo\google drive\ciência da computação-ufma\3º período\estrutura de dados\trabalho de implementação ii\colecao.c
+	<stdlib.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464786482 c:\users\eduardo\google drive\ciência da computação-ufma\3º período\estrutura de dados\trabalho de implementação ii\colecao.h
+
+1464476222 c:\users\eduardo\google drive\ciência da computação-ufma\3º período\estrutura de dados\trabalho de implementação ii\funcoes.h
+
+1464785176 source:c:\users\eduardo\google drive\ciência da computação-ufma\3º período\estrutura de dados\trabalho de implementação ii\funcoes.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+
+1464805294 source:c:\users\eduardo\google drive\ciência da computação-ufma\3º período\estrutura de dados\trabalho de implementação ii\main.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	"colecao.h"
+	"funcoes.h"
+

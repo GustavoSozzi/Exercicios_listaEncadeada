@@ -1,0 +1,51 @@
+# depslib dependency file v1.0
+1462455968 source:c:\users\eduardo.roger\documents\trabalho de implementação\main.c
+	<stdio.h>
+	<stdlib.h>
+	"assinaturas.h"
+
+1462456084 c:\users\eduardo.roger\documents\trabalho de implementação\assinaturas.h
+
+1462456084 source:c:\users\eduardo.roger\documents\trabalho de implementação\func_implementacoes.c
+	<stdio.h>
+	<stdlib.h>
+	"assinaturas.h"
+
+1462901759 source:c:\users\eduardo\documents\ciência da computação-ufma\3º período\estrutura de dados\trabalho de implementação i\func_implementacoes.c
+	<stdio.h>
+	<stdlib.h>
+	"assinaturas.h"
+
+1462735711 c:\users\eduardo\documents\ciência da computação-ufma\3º período\estrutura de dados\trabalho de implementação i\assinaturas.h
+
+1462901861 source:c:\users\eduardo\documents\ciência da computação-ufma\3º período\estrutura de dados\trabalho de implementação i\main.c
+	<stdio.h>
+	<stdlib.h>
+	"assinaturas.h"
+
+1463002558 source:d:\trabalho de implementação i\main.c
+	<stdio.h>
+	<stdlib.h>
+	"assinaturas.h"
+
+1463002558 d:\trabalho de implementação i\assinaturas.h
+
+1463147274 source:g:\trabalho de implementação i\func_implementacoes.c
+	<stdio.h>
+	<stdlib.h>
+	"assinaturas.h"
+
+1463002558 g:\trabalho de implementação i\assinaturas.h
+
+1463002558 source:g:\trabalho de implementação i\main.c
+	<stdio.h>
+	<stdlib.h>
+	"assinaturas.h"
+
+1463147274 source:f:\trabalho de implementação i\func_implementacoes.c
+	<stdio.h>
+	<stdlib.h>
+	"assinaturas.h"
+
+1463002558 f:\trabalho de implementação i\assinaturas.h
+

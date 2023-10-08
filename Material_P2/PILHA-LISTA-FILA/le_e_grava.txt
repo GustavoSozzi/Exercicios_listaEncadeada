@@ -1,0 +1,119 @@
+LAB2 - Laboratório de Programação II - 2022/2
+Sistemas de Informação
+Detalhes do material
+Aula Listas
+Carlos Elias Arminio Zampieri
+•
+28 de mar. (editado: 29 de mar.)
+
+ListaOrdenada.c
+Texto
+
+ListaEncadeada.c
+C
+
+ListaOrdenada.c
+C
+
+FilaEncadeada.c
+C
+
+Le_e_Grava_Lista.c
+C
+Comentários da turma
+
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define TMAX 10
+
+typedef struct no
+{
+    int valor;
+    short int status; //0: inalterado; 1: novo; 2: removido; 3: alterado
+    struct no *prox;
+} NO;
+
+/** Arquivos Binarios **/
+
+FILE *abrirArquivo(char *filename,char *tipo)
+{
+    FILE *arq = NULL;
+    arq = fopen(filename,tipo);
+    printf("Abrindo o arquivo '%s' como '%s'\n",filename,tipo);
+    if (arq==NULL) //se retornou ponteiro nulo ao abrir o arquivo, erro
+    {
+        fprintf(stderr,"Erro ao abrir o arquivo: %s para '%s'\n",filename,tipo);
+        exit(1);
+    }
+    else
+    {
+        return arq;
+    }
+}
+
+NO *lerLista(char *filename) //le o arquivo binario e recria a lista
+{
+    FILE *file = abrirArquivo(filename,"rb");
+    NO *lista = NULL;
+    NO *novo = malloc(sizeof(NO));
+    while (fread(novo,sizeof(NO),1,file)>0)
+    {
+        printf("Leu o ");printNO(novo);printf("\n");
+        inserir(&lista,novo->valor,0);
+    }
+    free(novo);
+    return lista;
+}
+
+void gravarLista(char *filename,NO *lista) //grava a lista em um arquivo binario
+{
+    NO *aux = NULL;
+    FILE *file = fopen(filename,"rb");
+    if (file==NULL)
+    {
+        fclose(file);
+        file = abrirArquivo(filename,"wb");
+        for (aux=lista;aux!=NULL;aux=aux->prox)
+        {
+            printf("Gravando ");printNO(aux);printf("\n");
+            fwrite(aux,sizeof(NO),1,file);
+        }
+        fclose(file);
+    }
+    else
+    {
+        fclose(file);
+        file = abrirArquivo(filename,"ab");
+        int removeu = 0;
+        printf("Gravando lista no arquivo '%s'\n",filename);
+        rewind(file);
+        for (aux=lista;aux!=NULL;aux=aux->prox)
+        {
+            if (aux->status==2)
+            {
+                removeu = 1;
+            }
+
+            if (removeu==0)
+            {
+                fseek(file,sizeof(NO),SEEK_CUR);
+                if (aux->status==3)
+                {
+                    printf("Alterando ");printNO(aux);printf("\n");
+                    fwrite(aux,sizeof(NO),1,file);
+                }
+            }
+            else
+            {
+                printf("Gravando ");printNO(aux);printf("\n");
+                fwrite(aux,sizeof(NO),1,file);
+            }
+        }
+        fclose(file);
+    }
+}
+Le_e_Grava_Lista.c
+Exibindo Le_e_Grava_Lista.c…
